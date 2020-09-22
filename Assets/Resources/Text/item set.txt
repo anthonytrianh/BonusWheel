@@ -1,0 +1,9 @@
+8
+heart 30 20
+brush 3 10
+gem 35 10
+hammer 3 10
+coin 750 5
+brush 1 20
+gem 75 5
+hammer 1 20
