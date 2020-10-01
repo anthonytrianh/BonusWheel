@@ -1,9 +1,9 @@
 Results from 1000 simulations:
-Life 30 min: 219
-Brush 3X: 100
-Gems 35: 115
-Hammer 3X: 97
-Coin 750X: 44
-Brush 1X: 188
-Gems 75: 53
-Hammer 1X: 184
+Life 30 min: 1932
+Brush 3X: 1017
+Gems 35: 1014
+Hammer 3X: 998
+Coin 750X: 504
+Brush 1X: 2007
+Gems 75: 512
+Hammer 1X: 2016

@@ -65,15 +65,29 @@ public class Wheel : MonoBehaviour
             return;
 
         // Roll
-        int roll = Random.Range(0, 101);
+#if false
+        int roll = Random.Range(1, 101);
         for (int i = 0; i < items.Count; i++)
         {
+            
             if (roll >= dropRates[items[i]].min && roll < dropRates[items[i]].max)
             {
                 dropIndex = i;
                 break;
             } 
         }
+#else
+        float roll = Random.Range(0f, 1f);
+        for (int i = 0; i < items.Count; i++)
+        {
+
+            if (roll >= dropRates[items[i]].min * 0.01f && roll < dropRates[items[i]].max * 0.01f)
+            {
+                dropIndex = i;
+                break;
+            }
+        }
+#endif
 
         Item item = items[dropIndex];
         float itemAngle = Item.ClampEulers(item.transform.eulerAngles.z + transform.eulerAngles.z);
@@ -87,9 +101,9 @@ public class Wheel : MonoBehaviour
 
 
     }
-    #endregion
+#endregion
 
-    #region Private
+#region Private
     IEnumerator Animate(float endAngle, bool skipAnimation = false)
     {
         isSpinning = true;
@@ -181,7 +195,6 @@ public class Wheel : MonoBehaviour
 
             if (percentage > 100)
                 Debug.LogWarning("Total Drop Chance over 100!");
-
         }
     }
 
@@ -199,9 +212,9 @@ public class Wheel : MonoBehaviour
             SetLayerRecursive(o.gameObject, layer);
         }
     }
-    #endregion
+#endregion
 
-    #region Unit Testing
+#region Unit Testing
     public Dictionary<Item, int> dropCount = new Dictionary<Item, int>();
     public void UnitTest()
     {
@@ -232,7 +245,7 @@ public class Wheel : MonoBehaviour
 
         sw.Close();
     }
-    #endregion
+#endregion
 }
 
 public struct ValueRange
