@@ -26,6 +26,7 @@ public class Wheel : MonoBehaviour
     public static float angleOffset = 360 / 16.0f;
 
     int dropIndex;
+    int totalChance;
 
     [Header("Animation Settings")]
     [Range(0, 0.5f)] public float tiltBackAmount = 0.21f;
@@ -65,8 +66,7 @@ public class Wheel : MonoBehaviour
             return;
 
         // Roll
-#if false
-        int roll = Random.Range(1, 101);
+        int roll = Random.Range(0, totalChance);
         for (int i = 0; i < items.Count; i++)
         {
             
@@ -76,24 +76,12 @@ public class Wheel : MonoBehaviour
                 break;
             } 
         }
-#else
-        float roll = Random.Range(0f, 1f);
-        for (int i = 0; i < items.Count; i++)
-        {
-
-            if (roll >= dropRates[items[i]].min * 0.01f && roll < dropRates[items[i]].max * 0.01f)
-            {
-                dropIndex = i;
-                break;
-            }
-        }
-#endif
 
         Item item = items[dropIndex];
         float itemAngle = Item.ClampEulers(item.transform.eulerAngles.z + transform.eulerAngles.z);
         float destinationAngle = (-itemAngle) - 360 * spinCycles;
         if (skipAnimation)
-            destinationAngle = item.transform.eulerAngles.z;
+            destinationAngle = -360 - item.transform.eulerAngles.z;
 
         Debug.Log("Item Drop: " + item.ToString());
 
@@ -196,6 +184,8 @@ public class Wheel : MonoBehaviour
             if (percentage > 100)
                 Debug.LogWarning("Total Drop Chance over 100!");
         }
+
+        totalChance = percentage;
     }
 
     void SetLayerRecursive(GameObject obj, int layer)
